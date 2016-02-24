@@ -1,33 +1,36 @@
 # Jacob Hample
 # Professor Montgomery
 # Applied Statistical Programming
-# February 23, 2016
+# February 25, 2016
 
 ## S3 ##
 
 # S3 function that simulates the gameshow "Let's Make a Deal"
 # 
-# The function PlayGame takes in a numeric 1, 2, or 3, compares that choice
-# to a randomly generated door value which indicates the location of the car,
-# then informs the player if they've selected the door with the car or one
-# with a goat
+# The function PlayGame takes in an object of class 'door' (in this case the
+# number 1, 2, or 3), compares that choice to a randomly generated door value
+# which indicates the location of the car, then informs the player if they've
+# selected the door with the car or one with a goat.
 # 
-# @param random.door A random number from 1-3
+# @param doors An object of class 'door' composed of a random number 1-3
 # @param possible doors A vector representing the possible door choices
 # 
 # @return A message indicating whether the player has received a car or goat
 # 
 # @author Jacob Hample
 
+# Creates object of class 'door'
+doors <- structure(sample(1:3, 1), class = "door")
+possible.doors <- 1:3
 
-# Creates a new class called 'door'
-door <- list()
-class(door) <- "door"
-
-# Creates function 'PlayGame'
+# Creates generic function 'Playgame'
 PlayGame <- function(door.choice) {
+  UseMethod("PlayGame")
+}
+
+# Tells Playgame what to with door objects
+PlayGame.door <- function(door.choice) {
   random.door <- sample(1:3, 1)
-  possible.doors <- 1:3
   if (door.choice == random.door) {
     print("Congratulations! You've won a BRAND NEW CAR!!!")
   }
